@@ -1,6 +1,6 @@
 {
   "name": "@chronos21/nxcore",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "core for dashboard",
   "main": "index.js",
   "scripts": {
