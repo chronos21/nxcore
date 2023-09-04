@@ -1,0 +1,22 @@
+{
+  "name": "@chronos21/nxcore",
+  "version": "1.0.0",
+  "description": "core for dashboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chronos21/nxcore.git"
+  },
+  "keywords": [
+    "nxcore"
+  ],
+  "author": "Cahya Isra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chronos21/nxcore/issues"
+  },
+  "homepage": "https://github.com/chronos21/nxcore#readme"
+}
