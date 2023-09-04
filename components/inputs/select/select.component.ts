@@ -1,5 +1,5 @@
 import { Component, HostListener, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
-import { SelectConfig, SelectOption, StdObject } from 'src/app/nxcore/interface';
+import { SelectConfig, SelectOption, StdObject } from '../../interface';
 
 @Component({
     selector: 'input-select',

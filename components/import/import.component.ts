@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, TemplateRef } from "@angular/core";
-import { StdObject } from "src/app/nxcore/interface";
+import { StdObject } from "../../interface";
 import { Modal } from "../../services/modal.service";
 
 @Component({

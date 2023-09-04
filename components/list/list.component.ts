@@ -1,6 +1,6 @@
 import { Component, Input, ContentChild, TemplateRef} from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { Breadcrumb, FilterConfig, FormOptions, SelectOption, StdObject, Tab, TableConfig } from "src/app/nxcore/interface";
+import { Breadcrumb, FilterConfig, FormOptions, SelectOption, StdObject, Tab, TableConfig } from "../../interface";
 import { Helper } from '../../services/helper.service';
 @Component({
     selector: 'nx-list',

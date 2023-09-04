@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { SelectOption } from 'src/app/nxcore/interface';
+import { SelectOption } from '../../interface';
 
 @Component({
     selector: 'input-calendar',

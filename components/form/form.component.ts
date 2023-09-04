@@ -1,5 +1,5 @@
 import { Component, ContentChild, Input, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
-import { FormConfig, FormOptions, StdObject } from 'src/app/nxcore/interface';
+import { FormConfig, FormOptions, StdObject } from '../../interface';
 
 @Component({
     selector: 'nx-form',

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { StdObject, UploadConfig } from '../../../interface';
 import { Request } from '../../../services/request.service';
-import { Toast } from 'src/app/nxcore/services/toast.service';
+import { Toast } from '../../../services/toast.service';
 
 @Component({
     selector: 'input-upload',

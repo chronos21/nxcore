@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { Helper } from '../../../services/helper.service';
-import { DateConfig } from 'src/app/nxcore/interface';
+import { DateConfig } from '../../interface';
 
 @Component({
     selector: 'input-date',

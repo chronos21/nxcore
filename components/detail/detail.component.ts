@@ -1,6 +1,6 @@
 import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router"
-import { Breadcrumb, FormConfig, FormOptions, InputType, PhoneCodeConfig, StdObject, Tab, ValidateObject } from "src/app/nxcore/interface"
+import { Breadcrumb, FormConfig, FormOptions, InputType, PhoneCodeConfig, StdObject, Tab, ValidateObject } from "../../interface"
 import { Helper } from '../../services/helper.service';
 import { Validator } from '../../services/validator.service';
 

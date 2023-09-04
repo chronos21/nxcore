@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DateConfig } from 'src/app/nxcore/interface';
+import { DateConfig } from '../../interface';
 @Component({
     selector: 'input-daterange',
     templateUrl: './daterange.component.html',

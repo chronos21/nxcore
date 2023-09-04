@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FilterConfig, SelectConfig, SelectOption, StdObject } from 'src/app/nxcore/interface';
+import { FilterConfig, SelectConfig, SelectOption, StdObject } from '../../interface';
 @Component({
     selector: 'nx-filter',
     templateUrl: './filter.component.html',
