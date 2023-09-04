@@ -1,0 +1,23 @@
+.pagination{
+    --bs-pagination-active-bg: var(--primary-color, blue);
+    --bs-pagination-active-border-color: var(--primary-color-darker, black);
+    margin-left: -5px;
+    margin-right: -5px;
+    border-color: transparent;
+    
+    .page-link{
+        font-size: inherit;
+        border: none;
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%!important;
+        margin: 0 3px;
+        > .fa {
+            font-size: inherit;
+        }
+    }
+}

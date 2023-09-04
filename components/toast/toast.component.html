@@ -1,0 +1,28 @@
+<div class="p-3 pb-4 toast-wrapper">
+    <div class="toast show opacity-1" [ngClass]="{'bg-success': title === 'Success', 'bg-danger': title === 'Error', 'bg-primary': title !== 'Error' && title !== 'Success'}" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body px-3 text-white w-100">
+                <div class="d-flex w-100">
+                    <div class="mb-0 me-2" >
+                        <i class="fa-solid fa-circle-exclamation" *ngIf="title === 'Error'"></i>
+                        <i class="fa-solid fa-circle-check" *ngIf="title === 'Success'"></i>
+                        <i class="fa-solid fa-circle-question" *ngIf="title !== 'Error' && title !== 'Success'"></i>
+                    </div>
+
+                    <div class="lh-sm flex-grow-1">
+                        <p class="mb-0 fs-13 toast-body-text">
+                            {{body}}
+                        </p>
+                    </div>
+        
+                    <div *ngIf="template">
+                        <ng-container *ngTemplateOutlet="template"></ng-container>
+                    </div>
+
+                    <button type="button" class="btn-close btn-close-white" (click)="handleClose()" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

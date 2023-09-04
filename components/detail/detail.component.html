@@ -1,0 +1,73 @@
+<div class="nx-detail mb-4">
+    <nav aria-label="breadcrumb" class="mb-lg-5">
+        <ol class="top breadcrumb">
+            <li class="breadcrumb-item" *ngFor="let item of props.breadcrumb" [ngClass]="{active: item.active}"><a [routerLink]="item.url" [queryParams]="item.queryParams" *ngIf="item.url">{{item.name}}</a><span *ngIf="!item.url">{{item.name}}</span> </li>
+        </ol>
+    </nav>
+    
+    <div class="row mb-3 align-items-center">
+        <div class="col-12 col-lg-7" *ngIf="props.title">
+            <h2>{{props.title}}</h2>
+        </div>
+        <div class="col text-end mt-2 mt-lg-0">
+            <button class="btn btn-primary px-4" (click)="props.handleEdit()" *ngIf="props.getEditAccess" [disabled]="props.isLoading">Edit</button>
+        </div>
+    </div>
+
+    <div class="alert bg-danger text-white alert-dismissible" role="alert" *ngIf="props.errMessage.length > 0">
+        <ul class="my-0" [ngClass]="{'list-unstyled': props.errMessage.length < 2}">
+            <li *ngFor="let item of props.errMessage" class="fw-medium">
+                {{item}}
+            </li>
+        </ul>
+        <button type="button" class="btn-close btn-close-white" (click)="props.closeAlert()" aria-label="Close"></button>
+    </div>
+    <div class="card shadow pb-4 position-relative">
+        <div class="card-header bg-white p-0 overflow-md-hidden" *ngIf="props.useTab">
+            <ul class="px-4 nav nav-tabs horizontal-tabs">
+                <li class="nav-item" *ngFor="let tab of props.tabs">
+                    <span class="nav-link" (click)="props.handleTabChange(tab.value)" 
+                        [ngClass]="{active: tab.value === props.activeTab, 'cursor-pointer': tab.value !== props.activeTab}">
+                        {{tab.name}}
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body p-4 pt-lg-4 pt-2">
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="row gx-5">
+                        <div class="col-lg-9">
+                            <nx-form
+                                *ngIf="useForm"
+                                [disabled]="props.disabled"
+                                [activeTab]="props.activeTab"
+                                [formConfig]="props.formConfig"
+                                [formValue]="props.formValue"
+                                [formOptions]="props.formOptions"
+                                [formLayout]="props.formLayout"
+                                [formInvalidFields]="props.formInvalidFields"
+                                [handleChange]="props.handleChange.bind(props)"  
+                                [handleSelectSearch]="props.handleSelectSearch.bind(props)"
+                            >
+                                <ng-template #customField let-item="item" let-idx="idx" let-disabled="disabled" *ngIf="form">
+                                    <ng-container>
+                                        <ng-template [ngTemplateOutlet]="form" [ngTemplateOutletContext]="{item, idx, disabled}"></ng-template>
+                                    </ng-container>
+                                </ng-template>
+                            </nx-form>
+
+                            <ng-content select="[body]"></ng-content>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nx-loading [show]="props.isLoading"></nx-loading>
+    </div>
+    <div class="form-action" *ngIf="props.getSaveAccess">
+        <button class="btn btn-dark" *ngIf="props.useCancelButton"  type="button" [disabled]="props.isLoading" (click)="props.handleCancel()">Cancel</button>
+        <button class="btn btn-primary" (click)="props.handleSubmit()" [disabled]="props.isLoading">Save</button>
+    </div>
+    <ng-content select="[footer]"></ng-content>
+</div>

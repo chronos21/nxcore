@@ -1,0 +1,4 @@
+<div class="input-date" id="dt-{{id}}">
+    <input [name]="id" class="form-control" type="text" readonly [disabled]="disabled" [placeholder]="placeholder" [value]="getValue" (click)="handleShow()">
+    <input-calendar [min]="getConfig.min" [max]="getConfig.max" [type]="type" [className]="calendarClassName" (nxChange)="handleChange($event)" [value]="getDateValue" *ngIf="showCalendar"></input-calendar>
+</div>

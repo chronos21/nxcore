@@ -1,0 +1,31 @@
+<div class="input-upload" [ngClass]="{disabled: disabled}">
+    <input type="file" [id]="id" (change)="handleUpload($event)" [accept]="this.getConfig['accept']" *ngIf="renderInput">
+    <div class="img-wrapper" *ngFor="let file of getValue">
+        <button class="btn btn-dark delete-file" type="button" (click)="handleDeleteFile(file['url'])">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <a [href]="file['url']" target="_blank" rel="noopener noreferrer" [ngClass]="{'pe-none': !isValidUrl(file['url'])}">
+            <img loading="lazy" alt="preview image" [src]="file['url']" *ngIf="isImage(file['url']); else doc">
+            <ng-template #doc>
+                <div class="doc-icon">
+                    <i class="fa fa-file display-4"></i>
+                    <div class="ellipsis-2">{{file['filename']}}</div>
+                </div>
+            </ng-template>
+        </a>
+    </div>
+    <div class="file-chooser position-relative" [ngClass]="{'pe-none': isLoading}" *ngIf="this.getConfig['max']! > getValue.length">
+        <label [for]="id">
+            <span>
+                {{isLoading ? 'Uploading...' : 'Choose File'}}
+            </span>
+            <small class="text-muted lh-1" *ngIf="!isLoading">
+                {{getFormat}} file only<br>max {{getConfig['maxSize']}} MB
+            </small>
+        </label>
+
+        <nx-loading [show]="isLoading"></nx-loading>
+    </div>
+</div>
+
+<input placeholder="No file chosen" class="form-control" [disabled]="true" *ngIf="disabled && getValue.length === 0">

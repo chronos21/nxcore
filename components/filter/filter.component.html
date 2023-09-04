@@ -1,0 +1,65 @@
+<div class="filter-wrapper">
+    <div class="row form-label-13">
+        <div class="col filter-form">
+            <div class="row gx-4 gx-xxl-3 gy-3">
+                <div [class]="item.className || 'col-lg-4 col-xxl-3'" *ngFor="let item of config; let idx = index">
+                    <div class="col-input" *ngIf="(config.length > getLimit && useMoreFilterButton) ? (idx < getLimit || showMore) : true">
+                        <div class="form-label">{{item.label}}</div>
+                        <div class="input-icon-prefix" *ngIf="item.type === 'search'">
+                            <i class="fa fa-search"></i>
+                            <input [name]="item.field" (keyup.enter)="handleApply()" type="search" (input)="handleChange(item.field, $event)" [value]="value[item.field] || ''" class="form-control" placeholder="{{item.placeholder}}">
+                        </div>
+    
+                        <input-select *ngIf="item.type === 'select'" placeholder="{{item.placeholder}}" [config]="getSelectConfig(item.config)" (nxChange)="handleChange(item.field, $event)" [options]="options[item.optionKey!]" [value]="value[item.field]"></input-select>
+    
+                        <input-date [type]="item.type" *ngIf="['datetime', 'time', 'date', 'month'].includes(item.type)" placeholder="{{item.placeholder}}" (nxChange)="handleChange(item.field, $event)" [value]="value[item.field]" [config]="item.config"></input-date>
+                
+                        <input-daterange 
+                            *ngIf="item.type === 'daterange'"
+                            [placeholderStart]="item.config?.placeholderStart" [placeholderEnd]="item.config?.placeholderEnd" 
+                            [value]="value[item.field]"
+                            (nxChange)="handleChange(item.field, $event)"
+                        >
+                        </input-daterange>
+
+                        <input-numberrange 
+                            *ngIf="item.type === 'numberrange'"
+                            [placeholderFrom]="item.config?.placeholderFrom" [placeholderTo]="item.config?.placeholderTo" 
+                            [value]="value[item.field]"
+                            (nxChange)="handleChange(item.field, $event)"
+                        >
+                        </input-numberrange>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-2 mt-lg-0 mt-3 filter-actions">
+            <div class="row gx-1">
+                <div class="col-lg-3 col-2" *ngIf="useMoreFilterButton && (config.length > getLimit)">
+                    <button class="btn btn-secondary px-0 chev-down-btn" [ngClass]="{'rotate': showMore}" (click)="showMore = !showMore;" ><i class="fa fa-chevron-down"></i></button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" type="button" (click)="handleApply()">Apply</button>
+                </div>
+            </div> 
+            <div class="row gx-1 mt-1">
+                <div class="col-lg-3 col-2" *ngIf="columnConfigOptions.length">
+                    <input-select (nxChange)="handleColumnConfig($event)" [value]="getColumnConfigValue" [config]="columnSelectConfig" [customTrigger]="true" menuClassName="end-lg-0 select-column-config" [options]="columnConfigOptions">
+                        <button trigger class="btn px-0 btn-secondary">
+                            <i class="fa-solid fa-border-none"></i>
+                            <span *ngIf="getColumnConfigValue.length !== columnConfigOptions.length"
+                                class="position-absolute badge border border-secondary rounded-circle bg-white p-1">
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </button>
+                    </input-select>
+                </div>
+                <div class="col">
+                    <button class="btn btn-dark" type="button" (click)="handleReset()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+

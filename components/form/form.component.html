@@ -1,0 +1,100 @@
+<form  class="nx-form {{className}}" (ngSubmit)="handleSubmit()">
+    <ng-container *ngFor="let layout of layoutKeys; let i = index">
+        <div *ngIf="i > 0" class="mt-5 mb-4">
+            <h6 class="fw-bold">{{layout}}</h6>
+        </div>
+        <div *ngFor="let item of formConfig[layout]; let idx = index" class="form-group">
+            <div *ngIf="item.type === 'separator'" class="col-12">
+                <div class="fw-semibold text-primary-dark" [ngClass]="{'pt-lg-3 pt-2': idx > 0 }"><u>{{item.label}}</u></div>
+            </div>
+            <div class="row" *ngIf="handleShowField(item.show) && item.type !== 'separator'">
+                <div class="{{labelClassName}} fw-medium">
+                    {{item.label}}<span class="text-danger" *ngIf="item.validation?.includes('required')">*</span>
+                    <div class="form-text" *ngIf="item.help">{{item.help}}</div>
+                </div>
+                <div class="col" >
+                    <div [class]="'mt-2 ' + formValue['_CLASS_' + item.field]" *ngIf="item.type === 'display'">
+                        {{formValue[item.field]}}
+                    </div>
+
+                    <input [type]="item.type" placeholder="{{item.placeholder}}" class="form-control"
+                        [id]="layout + idx" (input)="handleChange(item.field, $event)"
+                        [disabled]="disabled || item.disabled!" value="{{formValue[item.field]}}"
+                        [name]="item.name || item.field"
+                        *ngIf="['text', 'email', 'password', 'tel'].includes(item.type)"
+                    >
+                    
+                    <textarea *ngIf="item.type === 'textarea'" [disabled]="disabled || item.disabled!" [name]="item.name || item.field" rows="5" placeholder="{{item.placeholder}}"
+                        class="form-control" [id]="layout + idx" (input)="handleChange(item.field, $event)"
+                        value="{{formValue[item.field]}}">
+                    </textarea>
+    
+                    <div *ngIf="['radio', 'checkbox'].includes(item.type)">
+                        <div class="form-check" *ngFor="let option of formOptions[item.optionKey!]">
+                            <input [disabled]="disabled || item.disabled!"
+                                (change)="handleChange(item.field, $event, item.type)" [checked]="formValue[option.value.toString()]"
+                                class="form-check-input" [name]="item.field" [type]="item.type" [value]="option.value"
+                                [id]="layout + idx + option.value">
+                            <label class="form-check-label" [for]="layout + idx + option.value">
+                                {{option.label}}
+                            </label>
+                        </div>
+                    </div>
+    
+                    <input-upload *ngIf="item.type === 'upload'"
+                        [value]="formValue[item.field]"
+                        [disabled]="disabled || item.disabled!"
+                        [config]="item.config"
+                        (nxChange)="handleChange(item.field, $event, item.type)">
+                    </input-upload>
+    
+                    <input-select placeholder="{{item.placeholder}}" (nxChange)="handleChange(item.field, $event)"
+                        (search)="handleSelectSearch(item.optionKey!, $event)"
+                        [config]="item.config"
+                        [options]="formOptions[item.optionKey!]" [value]="formValue[item.field]"
+                        [disabled]="disabled || item.disabled!" *ngIf="item.type === 'select'">
+                    </input-select>
+    
+                    <input-number (nxChange)="handleChange(item.field, $event)" [disabled]="disabled || item.disabled!"
+                        placeholder="{{item.placeholder}}" [value]="formValue[item.field]"
+                        *ngIf="item.type === 'number'">
+                    </input-number>
+    
+                    <input-date *ngIf="['datetime', 'time', 'date'].includes(item.type)" [disabled]="disabled || item.disabled!" placeholder="{{item.placeholder}}"
+                        [type]="item.type" (nxChange)="handleChange(item.field, $event)" [value]="formValue[item.field]" [config]="item.config">
+                    </input-date>
+
+                    <div *ngIf="item.type === 'phone-code'">
+                        <div class="row gx-2">
+                            <div class="col-lg-2 col-3">
+                                <input-select placeholder="..." (nxChange)="handleChange(item.config.field, $event)"
+                                    menuMinWidth="250px"
+                                    (search)="handleSelectSearch(item.optionKey!, $event)"
+                                    [options]="formOptions[item.optionKey!]" [value]="formValue[item.config.field]"
+                                    [disabled]="disabled || item.disabled!">
+                                </input-select>
+                            </div>
+
+                            <div class="col">
+                                <input type="tel" placeholder="{{item.placeholder}}" class="form-control"
+                                    [id]="layout + idx" (input)="handleChange(item.field, $event)"
+                                    [disabled]="disabled || item.disabled!" value="{{formValue[item.field]}}"
+                                    [name]="item.name || item.field"
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <ng-container *ngIf="item.type === 'custom' && customField">
+                        <ng-template [ngTemplateOutlet]="customField" [ngTemplateOutletContext]="{item, idx: layout + idx , disabled}"></ng-template>
+                    </ng-container>
+                    
+                    <div class="invalid-feedback d-block" *ngIf="formInvalidFields[item.field]">
+                        {{formInvalidFields[item.field]}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-content></ng-content>
+</form>

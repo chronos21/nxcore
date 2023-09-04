@@ -1,0 +1,39 @@
+<section class="sidebar" [ngClass]="{'minimized': !show}">
+    <nav>
+        <div class="sidebar-header">
+            <a routerLink="/">
+                <span *ngIf="!env['logo']">{{env.name}}</span>
+                <img src="{{env['logoMain']}}" *ngIf="env['logoMain']" alt="{{env.name}}" height="15">
+            </a>
+            <button class="btn btn-clear header-expand-btn" (click)="handleShow()"><i class="fas fa-bars"></i></button>
+        </div>
+
+        <ng-content select="[topSidebar]"></ng-content>
+
+        <ul>
+            <li class="sidebar-item" *ngFor="let item of sidebar">
+                <ng-container *ngIf="item.children && !checkEmpty(item.children)">
+                    <a class="sidebar-link" [ngClass]="{active: active.includes(item.title)}"
+                        (click)="item.children && handleActive(item.title)">
+                        <i [class]="item.icon"></i>
+                        <span>{{item.title}}</span>
+                        <i class="fa fa-chevron-down"></i>
+                    </a>
+                    <ul class="sidebar-sub" [ngClass]="{show: active.includes(item.title)}">
+                        <li class="sidebar-subitem" *ngFor="let sub of item.children">
+                            <a *hasAccess="sub.acl" [routerLink]="item.link! +  sub.link" routerLinkActive="active"
+                                class="sidebar-link" (click)="handleRoute(item.title)">
+                                <i [class]="sub.icon || 'fas fa-ellipsis-v'"></i> {{sub.title}}
+                            </a>
+                        </li>
+                    </ul>
+                </ng-container>
+
+                <a (click)="handleRoute()" class="sidebar-link nochild" [routerLink]="item.link" *hasAccess="[item.acl, !item.children]" routerLinkActive="active">
+                    <i [class]="item.icon"></i>
+                    <span>{{item.title}}</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>

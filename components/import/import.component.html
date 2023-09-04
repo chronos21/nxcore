@@ -1,0 +1,14 @@
+<button class="btn btn-light bg-white" [disabled]="disabled" (click)="handleModal(modal_import)"><i class="fa-solid fa-upload"></i> Import</button>
+
+<ng-template #modal_import>
+    <h5 class="mb-3">Import</h5>
+    <div class="text-start">
+        <div class="mb-3 border rounded p-2" *ngIf="template">
+            <div class="mb-1">Download the template here.</div>
+            <a class="btn btn-outline-light text-primary border btn-block ellipsis" [href]="template" target="_blank" rel="noopener noreferrer"><i class="fa-regular fa-circle-down"></i> {{ getTemplateName }}</a>
+        </div>
+        
+        <div class="mb-1">Choose your file, then click submit to import.</div>
+        <input class="form-control" type="file" id="formFile" [accept]="accept" (change)="handleFileChange($event)">
+    </div>
+</ng-template>

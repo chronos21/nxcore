@@ -1,0 +1,16 @@
+.nx-form{
+    .form-control{
+        &.disabled, &:disabled{
+            border-color: transparent;
+            &::placeholder{
+                color: var(--disabled-placehoder-color);
+            }
+        }
+    }
+
+    .input-select{
+        >input:disabled + .fa-chevron-down{
+            display: none;
+        }
+    }
+}

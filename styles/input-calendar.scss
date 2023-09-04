@@ -1,0 +1,79 @@
+.input-calendar {
+    .btn-hover-light {
+        background-color: var(--bs-white);
+    }
+
+    .btn-hover-light:hover,
+    .btn-hover-light:focus {
+        color: var(--bs-blue);
+        background-color: var(--bs-light);
+    }
+
+    .cal-days,
+    .cal-weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        align-items: center;
+        font-size: var(--font-size);
+    }
+
+    .cal-month{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .cal-btn{
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .cal-select {
+        text-align: center;
+        font-size: var(--font-size);
+        border-radius: 4px;
+        &::placeholder{
+            color: var(--border-color);
+        }
+        &:focus{
+            box-shadow: none;
+            border-color: var(--bs-body-color);
+        }
+    }
+
+    .cal-weekday,
+    .cal-btn {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        border: none!important;
+        height: 40px;
+        padding: 0;
+        font-size: var(--font-size);
+    }
+
+    .cal-btn:not([disabled]) {
+        font-weight: 500;
+    }
+
+    .cal-btn:hover,
+    .cal-btn:focus {
+        background-color: rgba(0, 0, 0, .05);
+    }
+
+    .cal-btn.active{
+        background-color: var(--primary-color-darker, black);
+        color: white;
+    }
+
+    .cal-btn[disabled] {
+        border: 0;
+        opacity: .5;
+    }
+
+    .form-control-dark {
+        background-color: rgba(255, 255, 255, .05);
+        border-color: rgba(255, 255, 255, .15);
+    }
+}

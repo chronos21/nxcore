@@ -1,0 +1,22 @@
+.input-numberrange{
+    .range-start, .range-end{
+        .form-control{
+            width: 100%;
+        }
+    }
+
+    .range-start .form-control{
+        position: relative;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        &:focus{
+            z-index: 2;
+        }
+    }
+    .range-end .form-control{
+        position: relative;
+        margin-left: -1px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}

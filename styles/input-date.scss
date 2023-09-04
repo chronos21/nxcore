@@ -1,0 +1,21 @@
+.input-date{
+    position: relative;
+
+    >.form-control:not(:disabled){
+        cursor: pointer;
+    }
+
+    .input-calendar{
+        position: absolute;
+        z-index: 3;
+        >.dropdown-menu{
+            width: 340px;
+            max-width: calc(100% - 30px);
+        }
+
+        &.end-0{
+            transform: translateX(30px);
+        }
+    }
+    
+}

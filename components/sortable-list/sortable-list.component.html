@@ -1,0 +1,27 @@
+<div class="sortable-wrapper" [ngClass]="{'disabled': disabled}">
+    <div *ngIf="!data || data?.length === 0" class="sortable-nodata">
+        No data in this list.
+    </div>
+    <div *ngFor="let item of data; let index = index" [draggable]="!disabled"
+        (dragstart)="onDragStart(index)" (dragenter)="onDragEnter(index)"
+        (dragend)="onDragEnd()" (dragover)="onDragOver($event)">
+        <div class="drag-card">
+            <div class="sortable-text">
+                <span class="sortable-number">
+                    {{index + 1}}
+                </span>
+                <div>
+                    {{ item[labelField] || item.label }}
+                </div>
+            </div>
+            <div>
+                <button (click)="reorderItem(index, index + 1)" *ngIf="index < data.length - 1" [disabled]="disabled" class="btn d-lg-none btn-light me-1 text-primary btn-xs"><i class="fa-solid fa-arrow-down"></i></button>
+                <button (click)="reorderItem(index, index - 1)" *ngIf="index > 0" [ngClass]="{'me-1': suffix}" [disabled]="disabled" class="btn d-lg-none btn-light text-primary btn-xs"><i class="fa-solid fa-arrow-up"></i></button>
+                <ng-container *ngIf="suffix">
+                    <ng-template [ngTemplateOutlet]="suffix" [ngTemplateOutletContext]="{item, index}"></ng-template>
+                </ng-container>
+            </div>
+
+        </div>
+    </div>
+</div> 

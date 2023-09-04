@@ -1,0 +1,46 @@
+.filter-wrapper{
+    .filter-form{
+        >.row{
+            >div{
+                &:has(.col-input){
+                    display: unset;
+                } 
+                display: none
+            }
+        }
+    }
+
+    .chev-down-btn{
+        &.rotate{
+            .fa-chevron-down{
+                transform: rotate(-180deg);
+            }
+        }
+        .fa-chevron-down{
+            transition: 0.2s ease transform;
+        }
+    }
+    
+    .filter-actions{
+        .btn{
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .select-column-config{
+        width: 220px;
+    }
+
+    @media screen and (min-width: 1399px) {
+        .filter-actions{
+            max-width: 170px;
+        }   
+
+        .input-daterange{
+            .fa-calendar{
+                display: none;
+            }
+        }
+    }
+}

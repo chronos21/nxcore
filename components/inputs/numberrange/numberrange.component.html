@@ -1,0 +1,8 @@
+<div class="row gx-0 input-numberrange">
+    <div class="col-6 range-start">
+        <input-number [id]="id + 'st'" placeholder="From" (nxChange)="handleDataChange($event)" [value]="getValue('from')"></input-number>
+    </div>
+    <div class="col-6 range-end">
+        <input-number [id]="id + 'nd'" placeholder="To" (nxChange)="handleDataChange($event, 'to')" [value]="getValue('to')"></input-number>
+    </div>
+</div>

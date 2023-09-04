@@ -1,0 +1,101 @@
+.input-select{
+    position: relative;
+    >input{
+        &:disabled{
+            cursor: default!important;
+        }
+        padding-right: 26px;
+        &:read-only, &:not(:focus){
+            cursor: pointer;
+        }
+    }
+
+    > .fa{
+        position: absolute;
+        top: 9px;
+        display: flex;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        &:hover{
+            background: var(--border-color-alt);
+            
+        } 
+    }
+
+    .fa-close{
+        right: 28px;
+    }
+
+    .fa-chevron-down{
+        right: 8px;
+        transition: 0.2s ease-in-out transform;
+        &.active{
+            transform: rotate(-180deg);
+        }
+    }
+
+    .form-check{
+        *{
+            cursor: pointer;
+        }
+    }
+
+    .dropdown-menu{
+        z-index: 2;
+        width: 100%;
+        min-width: 150px;
+        display: grid;
+        gap: 5px;
+        max-height: 286px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 5px;
+
+        @media screen and (min-width: 992px) {
+            &::-webkit-scrollbar-track {
+                background-color: white;
+                border-radius: 20px;
+            }
+        }
+
+        .dropdown-item{
+            cursor: pointer!important;
+            .form-check{
+                margin-bottom: -2px;
+                white-space: break-spaces;
+            }
+            padding: 7px 12px;
+            border-radius: 5px;
+            font-size: var(--font-size);
+        }
+    }
+
+    .selected-option-list{
+        margin-top: 5px;
+        border: 1px solid var(--border-color-darker, black);
+        border-radius: 4px;
+        padding: 6px;
+
+        &.disabled{
+            margin-left: 1px;
+            margin-right: 1px;
+            .card{
+                background: var(--border-color-alt, blue);
+                padding: 7px 8px;
+                border-color: var(--border-color-alt, black);
+            }
+        }
+
+        .card{
+            &:not(:first-child){
+                margin-top: 5px;
+            }
+            border: 1px solid var(--border-color-darker, black);
+            border-radius: 4px;
+            padding: 5px 8px;
+        }
+    }
+}

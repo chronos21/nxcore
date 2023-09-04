@@ -1,0 +1,9 @@
+<div class="row gx-0 input-daterange" >
+    <div class="col-6 range-start">
+        <input-date [id]="id + 'st'" [config]="getStartConfig" (nxChange)="handleDateChange($event, 'start')" [placeholder]="placeholderStart || 'Start'" [value]="value?.start"></input-date>
+    </div>
+    <div class="col-6 range-end">
+        <input-date [id]="id + 'ed'" [config]="getEndConfig" (nxChange)="handleDateChange($event, 'end')" [placeholder]="placeholderEnd || 'End'" [value]="value?.end"></input-date>
+    </div>
+    <i class="fa-regular fa-calendar"></i>
+</div>

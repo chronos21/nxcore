@@ -1,0 +1,215 @@
+.sidebar {
+    width: 250px;
+    max-height: 100vh;
+    min-height: 720px;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background: var(--sidebar-bg, white);
+    transition: 0.2s ease-in-out width;
+    z-index: 3;
+
+    ul{
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    &.minimized {
+        width: 53px;
+        overflow-x: hidden;
+
+        .sidebar-link {
+            >span {
+                visibility: hidden;
+                height: 20px;
+                white-space: nowrap;
+            }
+
+            >.fa-chevron-down {
+                display: none;
+            }
+        }
+
+        .sidebar-header {
+            padding-left: 0;
+            padding-right: 0;
+            justify-content: center;
+
+            a {
+                display: none
+            }
+        }
+    }
+
+
+    .header-expand-btn {
+        color: var(--sidebar-icon);
+        font-size: 16px;
+    }
+
+    .sidebar-header {
+        position: sticky;
+        top: 0;
+        background: var(--sidebar-bg, white);
+        font-size: 20px;
+        padding: 9px 15px;
+        padding-right: 10px;
+        padding-left: 20px;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        z-index: 3;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    }
+
+    .sidebar-item {
+        &:has(.sidebar-sub.show) {
+            .sidebar-link {
+                i:first-child {
+                    color: var(--sidebar-color);
+                }
+
+                >.fa-chevron-down {
+                    transform: rotate(-180deg);
+                }
+            }
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+
+            i:first-child {
+                color: var(--sidebar-icon);
+            }
+
+            >span {
+                flex-grow: 1;
+            }
+
+            >.fa-chevron-down {
+                font-size: 12px;
+                margin-right: 10px;
+                min-width: revert;
+                transition: 0.2s linear transform;
+            }
+
+            &.active {
+                i:first-child {
+                    color: var(--sidebar-color);
+                }
+
+                >.fa-chevron-down {
+                    transform: rotate(-180deg);
+                }
+            }
+        }
+    }
+
+    .sidebar-link {
+        text-decoration: none;
+        display: block;
+        width: 100%;
+        padding: 13px 20px;
+        padding-right: 10px;
+        background: var(--sidebar-bg, white);
+        color: var(--sidebar-color, inherit);
+        transition: 0.2s filter linear, 0.2s background linear;
+        cursor: pointer;
+
+        &.nochild.active {
+            background-color: var(--sidebar-bg-active);
+        }
+
+        >i {
+            min-width: 16px;
+            margin-right: 13px;
+        }
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+    }
+
+    .sidebar-sub {
+        transition: 0.2s all linear;
+
+        &:not(.show) {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+
+
+        .sidebar-link {
+            padding: 11px 25px 11px 40px;
+
+            &.active {
+                font-weight: 500;
+                background-color: var(--sidebar-bg-active);
+            }
+
+            >i {
+                margin-right: 3px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 991px) {
+        position: fixed;
+        top: 0;
+        z-index: 9;
+        width: 53px;
+        height: 50px;
+        min-height: 0px;
+        overflow: hidden;
+
+        .sidebar-header {
+            padding: 10px 6px;
+
+            >a {
+                display: none;
+            }
+
+            .fa-bars {
+                font-size: 16px;
+            }
+        }
+
+        &.minimized {
+            width: 80%;
+            height: 100%;
+            min-height: 720px;
+            overflow-y: auto;
+
+            .sidebar-header {
+                display: flex;
+                padding-left: 20px;
+                padding-right: 10px;
+                justify-content: space-between;
+
+                >a {
+                    display: block;
+                }
+            }
+
+            .sidebar-link {
+                >span {
+                    visibility: revert;
+                }
+
+                height: auto;
+
+                >.fa-chevron-down {
+                    display: revert;
+                }
+            }
+        }
+    }
+}

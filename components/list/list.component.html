@@ -1,0 +1,89 @@
+<div class="nx-list">
+    <nav aria-label="breadcrumb" class="mb-lg-5">
+        <ol class="top breadcrumb">
+            <li class="breadcrumb-item" *ngFor="let item of props.breadcrumb" [ngClass]="{active: item.active}"><a [routerLink]="item.url" *ngIf="item.url" [queryParams]="item.queryParams">{{item.name}}</a><span *ngIf="!item.url">{{item.name}}</span> </li>
+        </ol>
+    </nav>
+    
+    <div class="row mb-3 align-items-center">
+        <div class="col-12 col-lg-7">
+            <h2>{{props.title}}</h2>
+        </div>
+        <div class="col text-end mt-2 mt-lg-0">
+            <ng-content select="[buttons]"></ng-content>
+            <nx-import *ngIf="props.useImportButton" [disabled]="props.isLoading" (submit)="props.handleImport($event)" [accept]="props.importAccept" [template]="props.importTemplate"></nx-import>
+            <button class="btn btn-light bg-white ms-2" *ngIf="props.useExportButton && props.data?.length" (click)="props.handleExport()" [disabled]="props.isLoading"><i class="fa-solid fa-download"></i> Export</button>
+            <a class="btn btn-primary ms-2 ms-2" [routerLink]="props.createUrl" *ngIf="props.useAddButton"><i class="fa fa-plus"></i> Add New</a>
+        </div>
+    </div>
+
+    <div class="alert {{props.alertClassName}} alert-dismissible" role="alert" *ngIf="props.errMessage.length > 0">
+        <ul class="my-0" [ngClass]="{'list-unstyled': props.errMessage.length < 2}">
+            <li *ngFor="let item of props.errMessage" class="fw-medium">
+                {{item}}
+            </li>
+        </ul>
+        <button type="button" class="btn-close btn-close-white" (click)="props.closeAlert()" aria-label="Close"></button>
+    </div>
+
+    <div class="card shadow position-relative mb-5">
+        <div class="card-header bg-white p-0 overflow-md-hidden" *ngIf="props.tabs.length">
+            <ul class="px-4 nav nav-tabs horizontal-tabs">
+                <li class="nav-item" *ngFor="let tab of props.tabs">
+                    <span class="nav-link" (click)="props.handleTabChange(tab.value)" 
+                        [ngClass]="{active: tab.value === props.activeTab, 'cursor-pointer': tab.value !== props.activeTab}">
+                        {{tab.name}}
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body p-lg-4 p-3">
+            <ng-content select="[header]"></ng-content>
+            <nx-filter
+                *ngIf="props.useFilter && props.filterConfig.length"
+                [value]="props.filterValue"
+                [config]="props.filterConfig"
+                [options]="props.filterOptions"
+                [handleApply]="props.handleFilterApply.bind(props)"
+                [handleChange]="props.handleFilterChange.bind(props)"
+                [handleReset]="props.handleFilterReset.bind(props)"
+                [useMoreFilterButton]="props.useMoreFilterButton"
+                [columnConfigValue]="props.columnConfigValue"
+                [columnConfigOptions]="props.columnConfigOptions"
+                (columnConfigChange)="props.handleColumnChange($event)"
+            ></nx-filter>
+            <div class="{{props.useFilter ? 'mt-4' : 'mt-2'}}" *ngIf="props.useTable && props.isInit">
+                <nx-table 
+                    [config]="props.getTableConfig" [data]="props.data" [sortValue]="props.sortValue"
+                    [handleSort]="props.handleSort.bind(props)"
+                    [detailUrl]="props.detailUrl"
+                    [pageCurrent]="props.pageCurrent"
+                    [maxPage]="5"
+                    [limitDataLength]="props.limitDataLength"
+                    [dataTotal]="props.dataTotal"
+                    [pageTotal]="props.pageTotal"
+                    [dataPerPage]="props.dataPerPage"
+                    [usePagination]="props.usePagination"
+                    (pageChange)="props.handlePageChange($event)"
+                    [useActionColumn]="props.useActionColumn"
+                    (limitChange)="props.dataPerPage = $event; props.initialize()"
+                >
+                    <ng-template #customCell let-item="item" let-index="idx" let-field="field" *ngIf="cell">
+                        <ng-container>
+                            <ng-template [ngTemplateOutlet]="cell" [ngTemplateOutletContext]="{item, field, index}"></ng-template>
+                        </ng-container>
+                    </ng-template>
+
+                    <ng-template #customAction let-item="item" let-index="idx" let-head="head" *ngIf="action">
+                        <ng-container>
+                            <ng-template [ngTemplateOutlet]="action" [ngTemplateOutletContext]="{item, head, index}"></ng-template>
+                        </ng-container>
+                    </ng-template>
+                </nx-table>
+            </div>
+            <ng-content select="[body]"></ng-content>
+        </div>
+        
+        <nx-loading [show]="props.isLoading"></nx-loading>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="input-calendar {{className}}">
+    <div class="dropdown-menu d-block position-static p-2 shadow rounded-1">
+        <div class="d-grid gap-1" *ngIf="!timeOnly">
+            <div class="cal">
+                <div class="cal-month">
+                    <button class="btn cal-btn" type="button" (click)="previous()" *ngIf="type !== 'month'">
+                        <i class="fa fa-chevron-left"></i>
+                    </button>
+                    <div class="row gx-1 w-100 mx-1">
+                        <div class="col-7">
+                            <input-select [config]="{allowSearch: false}" [options]="monthOptions" [value]="selectedMonth" (nxChange)="jump('MONTH', $event)"></input-select>
+                        </div>
+                        <div class="col-5">
+                            <input-select [config]="{allowSearch: false}" [options]="yearOptions" [value]="selectedYear" (nxChange)="jump('YEAR', $event)"></input-select>
+                        </div>
+                    </div>
+                    
+                    <button class="btn cal-btn" type="button" (click)="next()" *ngIf="type !== 'month'">
+                        <i class="fa fa-chevron-right"></i>
+                    </button>
+                </div>
+                <ng-container *ngIf="type !== 'month'">
+                    <div class="cal-weekdays text-muted">
+                        <div class="cal-weekday" *ngFor="let day of weekday">{{day}}</div>
+                    </div>
+                    <div class="cal-days">
+                        <button class="btn cal-btn" [ngClass]="{'active': this.getActiveDay(day)}" (click)="handleSelectDay(day)" *ngFor="let day of days" [disabled]="!day || this.getDisabledDay(day)" type="button">{{day}}</button>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="py-2 time-wrapper" *ngIf="useTime">
+            <hr class="mt-0" *ngIf="!timeOnly">
+            <div class="row gx-2 justify-content-center align-items-center">
+                <div class="col-4">
+                    <input-select [config]="{allowSearch: false}" [options]="hourOptions" [value]="selectedHour" (nxChange)="handleSelectHour($event)"></input-select>
+                </div>
+                    :
+                <div class="col-4">
+                    <input-select [config]="{allowSearch: false}" [options]="minuteOptions" [value]="selectedMinute" (nxChange)="handleSelectMinute($event)"></input-select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2" *ngIf="useToday">
+            <div class="col-6">
+                <button class="btn btn-light" (click)="handleClear()" *ngIf="value">Clear</button>
+            </div>
+            <div class="col-6 text-end">
+                <button class="btn btn-light" (click)="handleToday()" *ngIf="getTodayAccess">{{ useTime ? 'Now' : 'Today'}}</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+.toast-wrapper{
+    position: fixed;
+    z-index: 9;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 100%;
+    div > .fa-solid{
+        font-size: 18px;
+    }
+
+    .toast{
+        animation: 0.2s ease-in-out slideDown;
+    }
+
+    .toast-body-text{
+        padding-top: 2px;
+    }
+
+    @keyframes slideDown {
+        0%{
+            transform: translateY(-30px);
+            opacity: 0;
+        }
+
+        100%{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+}

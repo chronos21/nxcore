@@ -1,0 +1,38 @@
+.input-daterange{
+    position: relative;
+    .range-start{
+        .input-date >.form-control{
+            position: relative;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            &:focus{
+                z-index: 2;
+            }
+            &::-webkit-inner-spin-button,
+            &::-webkit-calendar-picker-indicator {
+                display: none;
+                -webkit-appearance: none;
+            }
+            width: 95%;
+        }
+    }
+    .range-end{
+        .input-date > .form-control{
+            position: relative;
+            margin-left: calc(-5% - 1px);
+            width: calc(105% + 1px);
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+    }
+
+    .fa-calendar{
+        position: absolute;
+        font-size: 15px;
+        top: calc(50% - 8px);
+        text-align: right;
+        width: 20px;
+        right: 10px;
+        display: block;
+    }
+}

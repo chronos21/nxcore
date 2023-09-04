@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive {{customClass}} {{getExtraTableClass}} mb-4">
+            <table aria-label="list table" class="table">
+                <thead class="table-light">
+                    <tr>
+                        <th [ngStyle]="{width: conf.width}" *ngFor="let conf of config">
+                            <button class="sortable-th" (click)="handleSort(conf.field)" *ngIf="!conf.unsortable; else unsortable">
+                                <span>
+                                    {{conf.header}}
+                                </span>
+                                <i class="fa-solid fa-sort-up" *ngIf="sortValue[conf.field] === 'ASC'"></i>
+                                <i class="fa-solid fa-sort-down" *ngIf="sortValue[conf.field] === 'DESC'"></i>
+                                <i class="fa-solid fa-sort" *ngIf="!sortValue[conf.field]"></i>
+                            </button>  
+                            
+                            <ng-template #unsortable>
+                                <div class="unsortable-th">
+                                    {{conf.header}}
+                                </div>
+                            </ng-template>
+                        </th>
+                        <th class="frozen-th action-td" *ngIf="useActionColumn">
+                            <div class="px-1">
+                                Action
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of data; let idx = index">
+                        <td *ngFor="let conf of config" [ngClass]="{'text-end': conf.type === 'number'}" [class]="conf.className!">
+                            <span *ngIf="!item[conf.field] && item[conf.field] !== 0; else notEmpty">
+                                N/A
+                            </span>
+
+                            <ng-template #notEmpty>
+                                <ng-container *ngIf="conf.type === 'custom' && customCell">
+                                    <ng-template [ngTemplateOutlet]="customCell" [ngTemplateOutletContext]="{item, field : conf.field, idx}"></ng-template>
+                                </ng-container>
+
+                                <span [class]="item['_CLASS_' + conf.field]" *ngIf="conf.type !== 'custom'">
+                                    <span *ngIf="conf.type === 'text'">{{ item[conf.field] }}</span>
+                                    <span *ngIf="conf.type === 'date'">{{ helper.formatDate(item[conf.field]) }}</span>
+                                    <span *ngIf="conf.type === 'datetime'">
+                                        {{  helper.formatDateTime(item[conf.field])  }}
+                                    </span>
+                                    <span *ngIf="conf.type === 'number'">
+                                        {{ helper.formatNumber(item[conf.field]) }}
+                                    </span>
+                                    <span *ngIf="conf.type === 'link'">
+                                        <a [href]="item[conf.field]" target="_blank" rel="noopener noreferrer">{{ conf.config?.label || item[conf.field] }}</a>
+                                    </span>
+                                    <span *ngIf="conf.type === 'img-preview'">
+                                        <a [href]="item[conf.field]" target="_blank" rel="noopener noreferrer">
+                                            <img [src]="item[conf.field]" alt="preview">
+                                        </a>
+                                    </span>
+                                </span>
+                            </ng-template>
+                        </td>
+                        <td class="frozen-td action-td" *ngIf="useActionColumn">
+                            <div class="px-1">
+                                <ng-container *ngIf="customAction; else defaultAction" >
+                                    <ng-template [ngTemplateOutlet]="customAction" [ngTemplateOutletContext]="{item, idx}"></ng-template>
+                                </ng-container>
+                                <ng-template #defaultAction>
+                                    <a [routerLink]="getDetailUrl(item)" class="btn btn-light text-primary btn-xs">
+                                        <i class="fas fa-pen-to-square"></i>
+                                    </a>
+                                </ng-template>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div *ngIf="!data || data?.length === 0" class="text-center py-3 fw-medium">
+                <span class="position-sticky start-0 px-3">
+                    No data found
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="pageTotal && usePagination && (data && data.length)">
+    <div class="col-lg-6">
+        <div class="d-flex align-items-center">
+            <span class="d-none d-lg-inline">
+                Showing {{renderFrom}} to {{renderTo}} of {{dataTotal}} entries. 
+            </span>
+
+            <span class="d-lg-none d-unset">Showing</span>
+            <div class="select-perpage mx-2">
+                <input-select [config]="{allowSearch: false, useClear: false}" menuClassName="bottom-100" placeholder="..." [options]="perPageOptions" (nxChange)="handleLimitChange($event)" [value]="dataPerPage"></input-select>
+            </div>
+
+            <span>
+                rows per page.
+            </span>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <ul class="pagination justify-content-end">
+            <li class="page-item" [ngClass]="{'disabled': pageCurrent === 1}">
+                <span (click)="handlePage(pageCurrent - 1)" class="page-link" aria-label="Previous">
+                    <i class="fa fa-chevron-left"></i>
+                </span>
+            </li>
+            <li class="page-item" *ngFor="let page of numberToArray(maxPage)">
+                <span (click)="handlePage(page)" class="page-link"
+                    [ngClass]="{'active': page === pageCurrent}">{{page}}</span>
+            </li>
+            <li class="page-item" [ngClass]="{'disabled': disableNext}">
+                <span class="page-link" aria-label="Next" (click)="handlePage(pageCurrent + 1)">
+                    <i class="fa fa-chevron-right"></i>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

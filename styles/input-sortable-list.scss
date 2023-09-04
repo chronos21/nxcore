@@ -1,0 +1,60 @@
+.sortable-wrapper {
+    border: 1px solid var(--border-color-darker);
+    padding: 4px;
+    border-radius: 5px;
+    padding-bottom: 0;
+
+    .sortable-nodata{
+        font-size: 12px;
+        text-align: center;
+        padding: 5px;
+        padding-bottom: 9.5px;
+        padding-top: 4px;
+    }
+
+    .sortable-number{
+        padding: 5px;
+        text-align: center;
+        margin-right: 7px;
+        display: flex;
+        font-size: 10px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        border: 1px solid var(--border-color-darker);
+    }
+
+    .sortable-text{
+        align-items: center;
+        display: flex;
+    }
+    
+    &.disabled{
+        margin-left: 1px;
+        margin-right: 1px;
+        .drag-card{
+            cursor:default!important;
+            background-color: var(--border-color-alt, blue);
+        }
+    }
+
+    .drag-card{
+        cursor: grab;
+        margin-bottom: 5px;
+        font-size: var(--font-size);
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 10px;
+        padding-right: 5px;
+        border: 1px solid var(--border-color-darker);
+
+        &:active{
+            cursor: grabbing;
+        }
+    }
+}
